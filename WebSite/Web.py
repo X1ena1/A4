@@ -12,6 +12,11 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
+#Info route
+@app.route("/info")
+def info():
+    return render_template('info.html')
+
 #Result route
 @app.route("/results")
 def results():

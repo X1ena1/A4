@@ -4,5 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}" type="text/css">
+</head>
+<body>
+    <header>
+        <h5>by Gianella Gonzalez</h5>
+    </header>
 
+
+    <main class="main">
+        <h1>CineMatch</h1>
+        <p>Where we strive to make your night</p>
+        <hr>
+        <button><a href="{{ url_for('info') }}" class="button">Find</a></button>
+    </main>
+
+</body>
 </html>
