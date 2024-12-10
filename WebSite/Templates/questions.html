@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Answer</title>
+</head>
+<body>
+    <h1>Answer the questions to get your movie recommendations</h1>
+    
+    <form method="POST">
+        {% for question, options in questions.items() %}
+            <fieldset>
+                <legend>{{ question }}</legend>
+                <select name="{{ question }}" required>
+                    {% for option in options %}
+                        <option value="{{ option }}">{{ option }}</option>
+                    {% endfor %}
+                </select>
+            </fieldset>
+        {% endfor %}
+        
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

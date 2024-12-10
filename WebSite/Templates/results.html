@@ -16,6 +16,7 @@
                 <th>Genre</th>
                 <th>Year</th>
                 <th>Rating</th>
+                <th>Description</th>
             </tr>
         </thead>
         <tbody>
@@ -25,9 +26,11 @@
                     <td>{{ movie.Genre }}</td>
                     <td>{{ movie.Year }}</td>
                     <td>{{ movie.Rating }}</td>
+                    <td>{{ movie.Description }}</td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
+    <button><a href="{{ url_for('index') }}" class="button">Go Again</a></button>
 </body>
 </html>
