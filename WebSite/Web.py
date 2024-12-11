@@ -3,14 +3,14 @@ from flask import Flask, render_template, request, redirect, url_for
 import pandas as pd
 import json
 
-#Importing Json
-with open('Ques.json') as file:
-    data = json.load(file)
-
 #reading the CSV file
 movies_df = pd.read_csv('IMDB-Movie-Data.csv')
 
 app = Flask(__name__)
+
+# Load the questions from the JSON file
+with open('Ques.json') as file:
+    data = json.load(file)
 
 #Home route
 @app.route("/")
@@ -26,31 +26,37 @@ def info():
 @app.route("/questions", methods=['GET', 'POST'])
 def questions():
     if request.method == 'POST':
-        
+
         selected_answers = request.form.to_dict()
 
-        return redirect(url_for('results', **selected_answers))
+        print("Selected answers:", selected_answers)  # Debugging line
+
+        if selected_answers:
+            query_string = '&'.join([f"{key}={value}" for key, value in selected_answers.items()])
+            return redirect(f"{url_for('results')}?{query_string}")
     
+        else:
+            return "No answers provided. Please fill out the form."
+
     return render_template('questions.html', questions=data)
 
 #Result route
 @app.route("/results")
 def results():
-    answers = request.args.get('answers')
-    
-    if not answers:
-        return "No answers provided. Please go back and fill out the form."
 
     # (Optional) Filter movies based on the selected genre or other answers
-    selected_genre = answers.get("What genre are you interested in?")
-   
-    if selected_genre:
-        filtered_movies = movies_df[movies_df['Genre'].str.contains(selected_genre, case=False, na=False)]
-    else:
-        filtered_movies = movies_df
+    selected_genre = request.args.get("What genre are you interested in?")
 
+    print("Selected genre:", selected_genre)
+
+    if not selected_genre:
+        return "No answers provided."
+
+    filtered_movies = filtered_movies[filtered_movies['Genre'].str.contains(selected_genre, case=False, na=False)]
+
+    filtered_movies = movies_df
     top_movies = filtered_movies.head(5)
-    # Display the filtered movies
+
     return render_template('results.html', movies=top_movies)
 
 #Running application

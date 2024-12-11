@@ -7,19 +7,16 @@
 </head>
 <body>
     <h1>Answer the questions to get your movie recommendations</h1>
-    
     <form method="POST">
-        {% for question, options in questions.items() %}
-            <fieldset>
-                <legend>{{ question }}</legend>
-                <select name="{{ question }}" required>
-                    {% for option in options %}
-                        <option value="{{ option }}">{{ option }}</option>
-                    {% endfor %}
-                </select>
-            </fieldset>
+        {% for question, choices in questions.items() %}
+            <div>
+                <label>{{ question }}</label><br>
+                {% for choice in choices %}
+                    <input type="radio" name="{{ question }}" value="{{ choice }}">
+                    <label>{{ choice }}</label><br>
+                {% endfor %}
+            </div>
         {% endfor %}
-        
         <button type="submit">Submit</button>
     </form>
 </body>

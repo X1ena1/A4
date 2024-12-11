@@ -1,20 +1,9 @@
 {
-    "What genre are you interested in?": [
-        "Action", "Comedy", "Horror", "Thriller", "Romance", "Family"
-    ],
-    "Did you want a family friendly film?": [
-        "Yes", "No"
-    ],
-    "Do you have an actor preference?": [
-        "Yes", "No"
-    ],
-    "Do you have a director preference?": [
-        "Yes", "No"
-    ],
-    "How long would you like the movie to be?": [
-        "Less than 90 mins", "90 - 120 mins", "More than 120"
-    ],
-    "What decade would you want to watch?": [
-        "2000 - 2010", "2010 - 2020"
+    "What genre where you interested in?": [
+        "Action",
+        "Comedy",
+        "Drama",
+        "Sci-Fi",
+        "Horror"
     ]
 }
