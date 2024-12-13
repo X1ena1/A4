@@ -7,17 +7,32 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}" type="text/css">
 </head>
 <body>
-    <header>
-        <h5>by Gianella Gonzalez</h5>
-    </header>
 
-
-    <main class="main">
-        <h1>CineMatch</h1>
-        <p>Where we strive to make your night</p>
-        <hr>
-        <button><a href="{{ url_for('info') }}" class="button">Find</a></button>
-    </main>
-
+    <div class="banner">
+        <div class="slider" style="--quantity: 10">
+            <div class="item" style="--position: 1"><img src="{{ url_for('static', filename='img/1.jpg')}}" alt=""></div>
+            <div class="item" style="--position: 2"><img src="{{ url_for('static', filename='img/2.jpg')}}" alt=""></div>
+            <div class="item" style="--position: 3"><img src="{{ url_for('static', filename='img/3.jpg')}}" alt=""></div>
+            <div class="item" style="--position: 4"><img src="{{ url_for('static', filename='img/4.jpg')}}" alt=""></div>
+            <div class="item" style="--position: 5"><img src="{{ url_for('static', filename='img/5.jpg')}}" alt=""></div>
+            <div class="item" style="--position: 6"><img src="{{ url_for('static', filename='img/6.jpg')}}" alt=""></div>
+            <div class="item" style="--position: 7"><img src="{{ url_for('static', filename='img/7.jpg')}}" alt=""></div>
+            <div class="item" style="--position: 8"><img src="{{ url_for('static', filename='img/8.jpg')}}" alt=""></div>
+            <div class="item" style="--position: 9"><img src="{{ url_for('static', filename='img/9.jpg')}}" alt=""></div>
+            <div class="item" style="--position: 10"><img src="{{ url_for('static', filename='img/10.jpg')}}" alt=""></div>
+        </div>
+        <div class="content">
+            <h1>
+                CineMatch
+            </h1>
+            <div class="author">
+                <h2>Where we strive to make your night!</h2>
+                <p>
+                    by Gianella Gonzalez
+                </p>
+                <button><a href="{{ url_for('info') }}" class="button">Find</a></button>
+        </div>
+        <div class="model"></div>
+    </div>
 </body>
 </html>
