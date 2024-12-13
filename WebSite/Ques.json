@@ -4,6 +4,11 @@
         "Comedy",
         "Drama",
         "Sci-Fi",
-        "Horror"
+        "Horror",
+        "Animation"
+    ],
+    "Would you prefer family-friendly?": [
+        "Yes",
+        "No"
     ]
 }

@@ -6,18 +6,13 @@
     <title>Select Answer</title>
 </head>
 <body>
-    <h1>Answer the questions to get your movie recommendations</h1>
+    <h2>{{ question }}</h2>
     <form method="POST">
-        {% for question, choices in questions.items() %}
-            <div>
-                <label>{{ question }}</label><br>
-                {% for choice in choices %}
-                    <input type="radio" name="{{ question }}" value="{{ choice }}">
-                    <label>{{ choice }}</label><br>
-                {% endfor %}
-            </div>
+        <h2>{{ question }}</h2>
+        {% for option in options %}
+            <input type="radio" name="{{ question }}" value="{{ option }}">{{ option }}<br>
         {% endfor %}
         <button type="submit">Submit</button>
-    </form>
+    </form>    
 </body>
 </html>
