@@ -6,28 +6,36 @@
     <title>Main Page</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/info.css') }}" type="text/css">
 </head>
-<div class="banner">
-    <div class="slider" style="--quantity: 10">
-        <div class="item" style="--position: 1"><img src="{{ url_for('static', filename='img/1.jpg')}}" alt=""></div>
-        <div class="item" style="--position: 2"><img src="{{ url_for('static', filename='img/2.jpg')}}" alt=""></div>
-        <div class="item" style="--position: 3"><img src="{{ url_for('static', filename='img/3.jpg')}}" alt=""></div>
-        <div class="item" style="--position: 4"><img src="{{ url_for('static', filename='img/4.jpg')}}" alt=""></div>
-        <div class="item" style="--position: 5"><img src="{{ url_for('static', filename='img/5.jpg')}}" alt=""></div>
-        <div class="item" style="--position: 6"><img src="{{ url_for('static', filename='img/6.jpg')}}" alt=""></div>
-        <div class="item" style="--position: 7"><img src="{{ url_for('static', filename='img/7.jpg')}}" alt=""></div>
-        <div class="item" style="--position: 8"><img src="{{ url_for('static', filename='img/8.jpg')}}" alt=""></div>
-        <div class="item" style="--position: 9"><img src="{{ url_for('static', filename='img/9.jpg')}}" alt=""></div>
-        <div class="item" style="--position: 10"><img src="{{ url_for('static', filename='img/10.jpg')}}" alt=""></div>
-    </div>
 <body>
-    <div class="input-group">
-        <input type="text" required>
-        <label for="">Name</label>
-    </div>
-    <div class="input-grouped">
-        <input type="number" min="1" max="100" required>
-        <label for="">Age</label>
-    </div>
-    <a href="{{ url_for('questions') }}">Begin</a>
+    <div class="banner">
+        <div class="slider" style="--quantity: 10">
+            <div class="item" style="--position: 1"><img src="{{ url_for('static', filename='img/1.jpg')}}" alt=""></div>
+            <div class="item" style="--position: 2"><img src="{{ url_for('static', filename='img/2.jpg')}}" alt=""></div>
+            <div class="item" style="--position: 3"><img src="{{ url_for('static', filename='img/3.jpg')}}" alt=""></div>
+            <div class="item" style="--position: 4"><img src="{{ url_for('static', filename='img/4.jpg')}}" alt=""></div>
+            <div class="item" style="--position: 5"><img src="{{ url_for('static', filename='img/5.jpg')}}" alt=""></div>
+            <div class="item" style="--position: 6"><img src="{{ url_for('static', filename='img/6.jpg')}}" alt=""></div>
+            <div class="item" style="--position: 7"><img src="{{ url_for('static', filename='img/7.jpg')}}" alt=""></div>
+            <div class="item" style="--position: 8"><img src="{{ url_for('static', filename='img/8.jpg')}}" alt=""></div>
+            <div class="item" style="--position: 9"><img src="{{ url_for('static', filename='img/9.jpg')}}" alt=""></div>
+            <div class="item" style="--position: 10"><img src="{{ url_for('static', filename='img/10.jpg')}}" alt=""></div>
+        </div>
+
+        <div class="content">
+                <h1>Introduce yourself!</h1>
+                <form method="POST" action="{{ url_for('set_name') }}">
+                <div class="login-form">
+                    <div class="input-group">
+                        <input type="text" id="name" required>
+                        <label for="name">Name</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="number" min="1" max="100" id="age" required>
+                        <label for="age">Age</label>
+                    </div>
+                    <a href="{{ url_for('questions') }}" class="button">Begin</a>
+                </div>
+            </div>
+        </div>
 </body>
 </html>

@@ -1,0 +1,81 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: rgb(21, 21, 48);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    text-align: center;
+    flex-direction: column;
+}
+
+/* Heading styling */
+h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #f8b400; /* Light yellow color */
+}
+
+/* Form styling */
+form {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 40px;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Question styling */
+form h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+/* Radio button styling */
+.radio-options {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 30px;
+}
+
+.radio-options input[type="radio"] {
+    margin-right: 10px;
+    accent-color: #f8b400; /* Yellow accent for the radio button */
+}
+
+.radio-options label {
+    font-size: 1rem;
+    color: #ddd;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.radio-options label:hover {
+    color: #f8b400;
+}
+
+/* Submit button styling */
+button {
+    background-color: #f8b400;
+    color: #fff;
+    font-size: 1rem;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+    background-color: #d79f00;
+    transform: translateY(-5px);
+}
+
+button:active {
+    transform: translateY(0);
+}

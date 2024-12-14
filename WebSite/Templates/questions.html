@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Select Answer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/questions.css') }}" type="text/css">
 </head>
 <body>
-    <h2>{{ question }}</h2>
+    <h2>Hi {{ session['name'] }}!</h2>
     <form method="POST">
         <h2>{{ question }}</h2>
         {% for option in options %}
