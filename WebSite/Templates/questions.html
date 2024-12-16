@@ -7,13 +7,26 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/questions.css') }}" type="text/css">
 </head>
 <body>
-    <h2>Hi {{ session['name'] }}!</h2>
-    <form method="POST">
-        <h2>{{ question }}</h2>
-        {% for option in options %}
-            <input type="radio" name="{{ question }}" value="{{ option }}">{{ option }}<br>
-        {% endfor %}
-        <button type="submit">Submit</button>
-    </form>    
+    <div class="container">
+        <header>
+            <h2>Hi {{ session['name'] }}!</h2>
+        </header>
+
+        <form method="POST" class="question-form">
+            <div class="question-container">
+                <h3>{{ question }}</h3>
+                <div class="radio-options">
+                    {% for option in options %}
+                        <label class="radio-label">
+                            <input type="radio" name="{{ question }}" value="{{ option }}" required>
+                            <span class="custom-radio"></span> {{ option }}
+                        </label>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>
 </body>
 </html>

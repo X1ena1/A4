@@ -21,6 +21,14 @@ def index():
 #Info route
 @app.route("/info")
 def info():
+
+    if request.method == 'POST':
+
+        name = request.form.get['name']
+        session['name'] = name
+       
+        return redirect(url_for('questions'))
+    
     return render_template('info.html')
 
 
@@ -44,7 +52,6 @@ def questions():
         # Store the answer in session
         session[question_text] = selected_answer
 
-        # Move to the next question
         question_index += 1
 
         # If there are more questions, update the session and redirect to the next question
@@ -76,11 +83,21 @@ def results():
                                     .str.split(',')
                                     .apply(lambda genres: selected_genre in [genre.strip().lower() for genre in genres])]
     
+    #Emotion option
+    selected_feeling = selected_answers.get("Where you feeling for a certain emotion?")
+    if selected_feeling:
+        selected_feeling = selected_feeling.lower().strip()
+
+        filtered_movies = movies_df[movies_df['Genre']
+                            .str.lower()
+                            .str.split(',')
+                            .apply(lambda genres: any(feeling.strip().lower() in selected_feeling for feeling in genres))]
+
     #Family Option
     family_option = selected_answers.get("Would you prefer family-friendly?")
     if family_option:
         if family_option.lower() == "yes":
-        # Filter the movies that contain "family" in their genre
+
             filtered_movies = filtered_movies[filtered_movies['Genre']
                                           .str.contains("family", case=False, na=False)]
     
@@ -88,11 +105,16 @@ def results():
             # If "No" is selected, we simply don't filter by family-friendly content
             print("Family-friendly filter: No. Skipping family filter.")
 
-    top_movies = filtered_movies.head(10)
+
+    if filtered_movies.empty:
+        top_movies = []
+    else:
+        top_movies = filtered_movies.head(10).to_dict(orient='records')
 
     session['question_index'] = 0
 
     return render_template('results.html', movies=top_movies)
+
 
 #Running application
 if __name__ == "__main__":

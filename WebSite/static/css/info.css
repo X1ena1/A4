@@ -108,7 +108,7 @@ input {
 
 /* Focused input styles */
 input:focus {
-    border-color: #6be4ff;
+    border-color: #f976f0;
     box-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
 }
 
@@ -129,7 +129,7 @@ input:valid + label {
     top: -10px;
     left: 10px;
     font-size: 0.9rem;
-    color: #96c2ff;
+    color: #f976f0;
 }
 
 /* Button Styles */

@@ -2,10 +2,19 @@
     "What genre where you interested in?": [
         "Action",
         "Comedy",
-        "Drama",
         "Sci-Fi",
         "Horror",
-        "Animation"
+        "Animation",
+        "Crime",
+        "Adventure"
+    ],
+    "Where you feeling for a certain emotion?": [
+        "Drama",
+        "Romance",
+        "Biographical",
+        "Thriller",
+        "Mystery",
+        "None"
     ],
     "Would you prefer family-friendly?": [
         "Yes",

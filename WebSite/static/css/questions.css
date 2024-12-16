@@ -1,41 +1,47 @@
+/* General page styling */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: rgb(21, 21, 48);
-    color: white;
+    background-color: rgb(21, 21, 48); /* Dark background */
+    color: bisque; /* Light bisque text color */
+    margin: 0;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0;
     text-align: center;
-    flex-direction: column;
 }
 
-/* Heading styling */
-h2 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-    color: #f8b400; /* Light yellow color */
-}
-
-/* Form styling */
-form {
-    background: rgba(0, 0, 0, 0.7);
+.container {
+    width: 90%;
+    max-width: 800px;
     padding: 40px;
+    background: rgba(0, 0, 0, 0.75); 
     border-radius: 15px;
-    width: 100%;
-    max-width: 500px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
-/* Question styling */
-form h2 {
-    font-size: 1.8rem;
+header h2 {
+    font-size: 2.5rem;
+    color: bisque; 
     margin-bottom: 20px;
-    color: #fff;
 }
 
-/* Radio button styling */
+/* Form styling */
+.question-form {
+    background: rgba(0, 0, 0, 0.8); 
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.question-container h3 {
+    font-size: 1.8rem;
+    color: bisque; /* Light color for the question */
+    margin-bottom: 20px;
+}
+
+/* Custom radio button styling */
 .radio-options {
     display: flex;
     flex-direction: column;
@@ -43,39 +49,87 @@ form h2 {
     margin-bottom: 30px;
 }
 
-.radio-options input[type="radio"] {
-    margin-right: 10px;
-    accent-color: #f8b400; /* Yellow accent for the radio button */
-}
-
-.radio-options label {
-    font-size: 1rem;
-    color: #ddd;
-    margin-bottom: 10px;
+.radio-label {
+    font-size: 1.1rem;
+    color: #ddd; /* Light grey for the options */
+    margin-bottom: 15px;
+    position: relative;
     cursor: pointer;
+    padding-left: 30px; /* Space for custom radio button */
 }
 
-.radio-options label:hover {
-    color: #f8b400;
+.radio-label input[type="radio"] {
+    position: absolute;
+    opacity: 0; /* Hide default radio button */
+}
+
+.radio-label .custom-radio {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #f976f0;
+    border-radius: 50%;
+    background-color: #2c2c2c; /* Dark background for the radio button */
+    transition: all 0.3s ease;
+}
+
+/* Custom radio button checked state */
+.radio-label input[type="radio"]:checked + .custom-radio {
+    background-color: #ce50c6; /* Yellow color when checked */
+    box-shadow: 0 0 5px #fd98f6;
+}
+
+/* Hover effects for radio options */
+.radio-label:hover .custom-radio {
+    border-color: #f976f0; /* Change border color on hover */
+    transform: scale(1.1); /* Slightly increase size */
 }
 
 /* Submit button styling */
-button {
-    background-color: #f8b400;
-    color: #fff;
-    font-size: 1rem;
-    padding: 12px 20px;
+.submit-btn {
+    background: linear-gradient(145deg, #f976f0, #fd98f6); /* Gradient yellow button */
+    color: white;
+    font-size: 1.2rem;
+    padding: 14px 30px;
     border: none;
-    border-radius: 25px;
+    border-radius: 50px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease-in-out;
+    margin-top: 20px;
+    font-weight: bold;
 }
 
-button:hover {
-    background-color: #d79f00;
-    transform: translateY(-5px);
+.submit-btn:hover {
+    background: linear-gradient(145deg, #f976f0, #ce50c6); /* Darker gradient on hover */
+    transform: translateY(-5px); /* Lift effect */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
-button:active {
-    transform: translateY(0);
+.submit-btn:active {
+    transform: translateY(2px); /* Press effect */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 20px;
+    }
+
+    header h2 {
+        font-size: 2rem;
+    }
+
+    .question-container h3 {
+        font-size: 1.5rem;
+    }
+
+    .submit-btn {
+        padding: 12px 25px;
+        font-size: 1rem;
+    }
 }

@@ -4,35 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/results.css') }}" type="text/css">
-    <title>Main Page</title>
+    <title>You CineMatched!</title>
 </head>
 <body>
-    <h1>You CineMatched!</h1>
-    <p>These are the top 5 movies</p>
+    <div class="container">
+        <header>
+            <h1>You CineMatched!</h1>
+            <p class="subtitle">Here are your top movie recommendations!</p>
+        </header>
 
-    <table border="2">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Genre</th>
-                <th>Year</th>
-                <th>Rating</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for movie in movies.itertuples() %}
-                <tr>
-                    <td>{{ movie.Title }}</td>
-                    <td>{{ movie.Genre }}</td>
-                    <td>{{ movie.Year }}</td>
-                    <td>{{ movie.Rating }}</td>
-                    <td>{{ movie.Description }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <button><a href="{{ url_for('questions') }}" class="button">Go Again</a></button>
-    <button><a href="{{ url_for('index') }}" class="button">Home</a></button>
+        <section class="movie-list">
+            <table class="movie-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Genre</th>
+                        <th>Year</th>
+                        <th>Rating</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if movies %}
+                        {% for movie in movies %}
+                            <tr>
+                                <td>{{ movie['Title'] }}</td>
+                                <td>{{ movie['Genre'] }}</td>
+                                <td>{{ movie['Year'] }}</td>
+                                <td>{{ movie['Rating'] }}</td>
+                                <td>{{ movie['Description'] }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="5" class="no-movies">Sorry, we couldn't CineMatch you. Try again!</td>                
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </section>
+
+        <footer>
+            <button class="button primary-btn"><a href="{{ url_for('questions') }}">Go Again</a></button>
+            <button class="button secondary-btn"><a href="{{ url_for('index') }}">Home</a></button>
+        </footer>
+    </div>
 </body>
 </html>
