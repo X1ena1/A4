@@ -63,7 +63,7 @@ def questions():
 
 @app.route("/almost", endpoint="almost_route")
 def almost():
-    return redirect(url_for('almost_route'))  #AI helped me include an endpoint such as loading screen
+    return render_template('almost.html')  #AI helped me include an endpoint such as loading screen
 
 #Result route
 @app.route("/results")
