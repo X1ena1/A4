@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main Page</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/info.css') }}" type="text/css">
+    <title>Almost Done</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/almost.css') }}">
 </head>
 <body>
     <div class="banner">
@@ -20,19 +20,19 @@
             <div class="item" style="--position: 9"><img src="{{ url_for('static', filename='img/9.jpg')}}" alt=""></div>
             <div class="item" style="--position: 10"><img src="{{ url_for('static', filename='img/10.jpg')}}" alt=""></div>
         </div>
-
-        <div class="content">
-            <h1>Introduce yourself!</h1>
-            <form method="POST" action="{{ url_for('info') }}">
-                <div class="login-form">
-                    <div class="input-group">
-                        <input type="text" id="name" name="name" required pattern="[A-Za-z]+" title="Only letters are allowed.">
-                        <label for="name">Name</label>
-                    </div>
-                    <button type="submit" class="button">Begin</button>
-                </div>
-            </form>
+        
+    <div class="container">
+        <h1>Thank You for Your Selections!</h1>
+        <p>Your preferences have been recorded. We are now finding the best movies for you...</p>
+        <div class="loading">
+            <p>Loading...</p>
         </div>
     </div>
+
+    <script>
+        setTimeout(function(){
+            window.location.href = "{{ url_for('results') }}";
+        }, 3000); 
+    </script>
 </body>
 </html>

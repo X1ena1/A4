@@ -1,3 +1,36 @@
+/* Style for the loader container */
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #f0f0f0; 
+    font-family: Arial, sans-serif;
+}
+
+/* Loader spinner */
+.loader {
+    border: 16px solid #f3f3f3; /* Light gray */
+    border-top: 16px solid #3498db; /* Blue color for the spinner */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+
+/* Spinner animation */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Text message */
+.loader-container p {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: bisque;
+}
 body {
     background: linear-gradient(to right, #2b2d42, #8d99ae);
     background-blend-mode: overlay;
@@ -79,29 +112,4 @@ body {
 .banner .content h2{
     font-size: 1em;
     margin: 0;
-}
-
-/* Base button styles */
-a.button {
-    display: block; 
-    padding: 15px 25px;
-    font-size: 1.2rem;
-    background-color: #619df0; 
-    color: white;
-    text-decoration: none; 
-    text-align: center;
-    border-radius: 30px; 
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    margin-top: 30px; 
-    width: fit-content; 
-}
-
-a.button:hover {
-    background-color: #f976f0; 
-    transform: translateY(-5px); 
-}
-
-button {
-    all: unset; 
-    display: inline-block; 
 }

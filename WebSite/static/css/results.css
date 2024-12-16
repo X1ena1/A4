@@ -1,11 +1,13 @@
-/* General page styling */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: rgb(21, 21, 48); 
+    background: linear-gradient(to right, #2b2d42, #8d99ae);
+    background-blend-mode: overlay;
+    background-size: cover;
+    background-position: center;
+    background-color: rgb(21, 21, 48);
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    color: bisque; 
+    font-family: Arial, sans-serif;
+    height: 100vh;
 }
 
 .container {

@@ -3,13 +3,11 @@ from flask import Flask, render_template, request, redirect, url_for, session
 import pandas as pd
 import json
 
-#reading the CSV file
+app = Flask(__name__)
 movies_df = pd.read_csv('IMDB-Movie-Data.csv')
 
-app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
-# Load the questions from the JSON file
 with open('Ques.json') as file:
     data = json.load(file)
 
@@ -19,22 +17,23 @@ def index():
     return render_template('index.html')
 
 #Info route
-@app.route("/info")
+@app.route("/info", methods=['GET', 'POST'])
 def info():
-
     if request.method == 'POST':
+        name = request.form.get('name')
 
-        name = request.form.get['name']
         session['name'] = name
-       
+               
         return redirect(url_for('questions'))
     
     return render_template('info.html')
 
-
 #Question route
 @app.route("/questions", methods=['GET', 'POST'])
 def questions():
+    if 'name' not in session:
+        return redirect(url_for('info'))
+
     question_index = session.get('question_index', 0)
 
     questions = list(data.items())
@@ -45,66 +44,73 @@ def questions():
     question_text, options = questions[question_index]
 
     if request.method == 'POST':
-
         selected_answer = request.form.get(question_text)
-        print(f"Selected answer for {question_text}: {selected_answer}")
+        print(f"Selected answer for {question_text}: {selected_answer}")  #Debugging line
 
         # Store the answer in session
         session[question_text] = selected_answer
 
         question_index += 1
+        session['question_index'] = question_index
 
         # If there are more questions, update the session and redirect to the next question
         if question_index < len(questions):
-            session['question_index'] = question_index
             return redirect(url_for('questions'))
         else:
-            # If no more questions, redirect to the results page
-            return redirect(url_for('results'))
+            return redirect(url_for('almost_route'))
 
     return render_template('questions.html', question=question_text, options=options)
+
+@app.route("/almost", endpoint="almost_route")
+def almost():
+    return redirect(url_for('almost_route'))  #AI helped me include an endpoint such as loading screen
 
 #Result route
 @app.route("/results")
 def results():
     selected_answers = {question: session.get(question) for question in data.keys()}
-
-    print("Selected answers:", selected_answers) #debuggin line
-
     filtered_movies = movies_df.copy()
 
-    #Genre Option
-    selected_genre = selected_answers.get("What genre where you interested in?")
-    if selected_genre:
-        selected_genre = selected_genre.lower().strip()
+    for filter, selected_value in selected_answers.items():
+        if not selected_value or selected_value == "None":
+            continue
+        
+        # Genre filter
+        if filter == "What genre where you interested in?":
+            filtered_movies = filtered_movies[filtered_movies['Genre'].str.contains(selected_value, case=False, na=False)]
 
-        filtered_movies = movies_df[movies_df['Genre']
-                                    .str.lower()
-                                    .str.split(',')
-                                    .apply(lambda genres: selected_genre in [genre.strip().lower() for genre in genres])]
-    
-    #Emotion option
-    selected_feeling = selected_answers.get("Where you feeling for a certain emotion?")
-    if selected_feeling:
-        selected_feeling = selected_feeling.lower().strip()
+        # Emotion filter (Assuming stored in Genre for simplicity, adjust if needed)
+        elif filter == "Where you feeling for a certain emotion?":
+            filtered_movies = filtered_movies[filtered_movies['Genre'].str.contains(selected_value, case=False, na=False)]
 
-        filtered_movies = movies_df[movies_df['Genre']
-                            .str.lower()
-                            .str.split(',')
-                            .apply(lambda genres: any(feeling.strip().lower() in selected_feeling for feeling in genres))]
+            # Family filter
+        elif filter == "Would you prefer family-friendly?" and selected_value.lower() == "yes":
+            filtered_movies = filtered_movies[filtered_movies['Genre'].str.contains("family", case=False, na=False)]
 
-    #Family Option
-    family_option = selected_answers.get("Would you prefer family-friendly?")
-    if family_option:
-        if family_option.lower() == "yes":
+            # Rating filter
+        elif filter == "What kind of rating would you prefer?":
+            if selected_value == "1 - 5":
+                filtered_movies = filtered_movies[(filtered_movies['Rating'] >= 1) & (filtered_movies['Rating'] <= 5)]
+            elif selected_value == "6 - 10":
+                filtered_movies = filtered_movies[(filtered_movies['Rating'] >= 6) & (filtered_movies['Rating'] <= 10)]
 
-            filtered_movies = filtered_movies[filtered_movies['Genre']
-                                          .str.contains("family", case=False, na=False)]
-    
-        elif family_option.lower() == "no":
-            # If "No" is selected, we simply don't filter by family-friendly content
-            print("Family-friendly filter: No. Skipping family filter.")
+        #Year filter
+        elif filter == "How old would you prefer the movie?":
+            if selected_value == "1 - 5 years":
+                filtered_movies = filtered_movies[(filtered_movies['Year'] >= 2020)]
+            elif selected_value == "5 - 10 years":
+                filtered_movies = filtered_movies[(filtered_movies['Year'] >= 2014) & (filtered_movies['Year'] < 2020)]
+            elif selected_value == "10 - 20 years":
+                filtered_movies = filtered_movies[(filtered_movies['Year'] >= 2004) & (filtered_movies['Year'] < 2014)]
 
+        #Runtime filter
+        elif filter == "What run time where you thinking (minutes)?":
+            if selected_value == "Less than 90":
+                filtered_movies = filtered_movies[filtered_movies['Runtime (Minutes)'] < 90]
+            elif selected_value == "90 - 120":
+                filtered_movies = filtered_movies[(filtered_movies['Runtime (Minutes)'] >= 90) & (filtered_movies['Runtime (Minutes)'] <= 120)]
+            elif selected_value == "120 or more":
+                filtered_movies = filtered_movies[filtered_movies['Runtime (Minutes)'] > 120]
 
     if filtered_movies.empty:
         top_movies = []
@@ -114,7 +120,6 @@ def results():
     session['question_index'] = 0
 
     return render_template('results.html', movies=top_movies)
-
 
 #Running application
 if __name__ == "__main__":
