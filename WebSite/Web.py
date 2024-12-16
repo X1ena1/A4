@@ -2,6 +2,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import pandas as pd
 import json
+from datetime import datetime
 
 app = Flask(__name__)
 movies_df = pd.read_csv('IMDB-Movie-Data.csv')
@@ -21,9 +22,10 @@ def index():
 def info():
     if request.method == 'POST':
         name = request.form.get('name')
+        if not name:
+            return render_template('info.html', error="Please provide your name.")
 
         session['name'] = name
-               
         return redirect(url_for('questions'))
     
     return render_template('info.html')
@@ -35,7 +37,6 @@ def questions():
         return redirect(url_for('info'))
 
     question_index = session.get('question_index', 0)
-
     questions = list(data.items())
 
     if question_index >= len(questions):
@@ -71,10 +72,18 @@ def results():
     selected_answers = {question: session.get(question) for question in data.keys()}
     filtered_movies = movies_df.copy()
 
+    current_year = datetime.now().year
+    min_year = 2000
+
+    filtered_movies['Year'] = pd.to_numeric(filtered_movies['Year'], errors='coerce')
+    filtered_movies = filtered_movies.dropna(subset=['Year'])
+
     for filter, selected_value in selected_answers.items():
         if not selected_value or selected_value == "None":
             continue
         
+        print(f"Processing filter: {filter} with selected value: {selected_value}") #Debugging line
+
         # Genre filter
         if filter == "What genre where you interested in?":
             filtered_movies = filtered_movies[filtered_movies['Genre'].str.contains(selected_value, case=False, na=False)]
@@ -97,12 +106,12 @@ def results():
         #Year filter
         elif filter == "How old would you prefer the movie?":
             if selected_value == "1 - 5 years":
-                filtered_movies = filtered_movies[(filtered_movies['Year'] >= 2020)]
+                filtered_movies = filtered_movies[(filtered_movies['Year'] >= (current_year - 5))]
             elif selected_value == "5 - 10 years":
-                filtered_movies = filtered_movies[(filtered_movies['Year'] >= 2014) & (filtered_movies['Year'] < 2020)]
+                filtered_movies = filtered_movies[(filtered_movies['Year'] >= (current_year - 10)) & (filtered_movies['Year'] < (current_year - 5))]
             elif selected_value == "10 - 20 years":
-                filtered_movies = filtered_movies[(filtered_movies['Year'] >= 2004) & (filtered_movies['Year'] < 2014)]
-
+                filtered_movies = filtered_movies[(filtered_movies['Year'] >= (current_year - 20)) & (filtered_movies['Year'] < (current_year - 10))]
+        
         #Runtime filter
         elif filter == "What run time where you thinking (minutes)?":
             if selected_value == "Less than 90":
@@ -111,6 +120,8 @@ def results():
                 filtered_movies = filtered_movies[(filtered_movies['Runtime (Minutes)'] >= 90) & (filtered_movies['Runtime (Minutes)'] <= 120)]
             elif selected_value == "120 or more":
                 filtered_movies = filtered_movies[filtered_movies['Runtime (Minutes)'] > 120]
+
+    filtered_movies = filtered_movies.dropna(subset=['Year'])
 
     if filtered_movies.empty:
         top_movies = []
