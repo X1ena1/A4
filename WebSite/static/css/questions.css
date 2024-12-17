@@ -1,8 +1,8 @@
 /* General page styling */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: rgb(21, 21, 48); /* Dark background */
-    color: bisque; /* Light bisque text color */
+    background-color: rgb(21, 21, 48); 
+    color: bisque; 
     margin: 0;
     padding: 0;
     display: flex;
@@ -103,13 +103,13 @@ header h2 {
 }
 
 .submit-btn:hover {
-    background: linear-gradient(145deg, #f976f0, #ce50c6); /* Darker gradient on hover */
-    transform: translateY(-5px); /* Lift effect */
+    background: linear-gradient(145deg, #f976f0, #ce50c6); 
+    transform: translateY(-5px); 
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
 .submit-btn:active {
-    transform: translateY(2px); /* Press effect */
+    transform: translateY(2px); 
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
