@@ -75,6 +75,7 @@ def results():
     current_year = datetime.now().year
     min_year = 2000
 
+    #AI helped develop define my variables
     filtered_movies['Year'] = pd.to_numeric(filtered_movies['Year'], errors='coerce')
     filtered_movies = filtered_movies.dropna(subset=['Year'])
 
@@ -123,6 +124,7 @@ def results():
 
     filtered_movies = filtered_movies.dropna(subset=['Year'])
 
+    #If no options selected it'll show the first movies in the database
     if filtered_movies.empty:
         top_movies = []
     else:
